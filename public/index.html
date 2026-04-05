@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TomateCloud - Configuração OpenClaw</title>
+  <link rel="icon" type="image/svg+xml" href="/openclaw.svg">
+  <script src="https://cdn.tailwindcss.com" data-cfasync="false"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" data-cfasync="false"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" data-cfasync="false">
+  <script data-cfasync="false">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tomate: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #ef4444; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .provider-card.selected, .channel-card.selected, .search-card.selected { border-color: #ef4444; background-color: #fef2f2; }
+    .step-dot { transition: all 0.3s; }
+    .step-dot.active { background-color: #ef4444; color: white; transform: scale(1.1); }
+    .step-dot.done { background-color: #22c55e; color: white; }
+    .step-dot.pending { background-color: #d1d5db; color: #6b7280; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div id="app" class="max-w-4xl mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <img src="/openclaw.svg" class="w-16 h-16" alt="OpenClaw">
+        <h1 class="text-3xl font-bold text-gray-900">TomateCloud</h1>
+      </div>
+      <p class="text-gray-600">Configuração do OpenClaw - Assistente de Instalação</p>
+    </header>
+
+    <div id="progress-bar" class="mb-8 hidden">
+      <div class="flex justify-between mb-2 text-sm">
+        <span id="step-label" class="font-medium text-gray-700"></span>
+        <span id="progress-percent" class="text-gray-500"></span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div id="progress-fill" class="bg-tomate-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+      <div id="steps-indicator" class="flex justify-between mt-3 text-xs"></div>
+    </div>
+
+    <div id="content" class="bg-white rounded-xl shadow-lg p-6 fade-in">
+      <div id="loading" class="text-center py-12">
+        <div class="spinner mx-auto mb-4"></div>
+        <p class="text-gray-600">Verificando instalação...</p>
+      </div>
+    </div>
+
+    <footer class="text-center mt-8 text-sm text-gray-500">
+      <p>TomateCloud OpenClaw Wrapper v1.0.0</p>
+    </footer>
+  </div>
+
+  <script src="/app.js" data-cfasync="false"></script>
+</body>
+</html>

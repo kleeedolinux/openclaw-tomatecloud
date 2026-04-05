@@ -1,0 +1,26 @@
+{
+  "name": "tomatecloud-openclaw-wrapper",
+  "version": "1.0.0",
+  "description": "Wrapper do OpenClaw para TomateCloud com interface de onboarding web",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "css:build": "postcss public/styles.css -o public/styles.min.css",
+    "css:watch": "postcss public/styles.css -o public/styles.min.css --watch",
+    "postinstall": "npm run css:build"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5",
+    "ws": "^8.18.0",
+    "node-fetch": "^3.3.2",
+    "openclaw": ""
+  },
+  "devDependencies": {
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "autoprefixer": "^10.4.18",
+    "cssnano": "^6.1.0"
+  }
+}
