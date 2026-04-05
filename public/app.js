@@ -958,20 +958,23 @@ async function getCompleteStep() {
 
 async function startGateway() {
   const btn = $(event.target).closest('button');
-  btn.prop('disabled', true).html('<div class="spinner inline-block mr-2"></div> Iniciando...');
+  btn.prop('disabled', true).html('<div class="spinner inline-block mr-2"></div> Reiniciando...');
 
   try {
-    const data = await $.ajax({ url: `${API}/api/gateway/start`, method: 'POST' });
+    await $.ajax({ url: `${API}/api/onboarding/complete`, method: 'POST' });
 
-    if (data.success) {
-      btn.html('<i class="fas fa-check mr-2"></i>Gateway Iniciado!')
-        .removeClass('bg-tomate-500 hover:bg-tomate-600')
-        .addClass('bg-green-500');
-
-      await $.ajax({ url: `${API}/api/onboarding/complete`, method: 'POST' });
-    } else {
-      throw new Error(data.error);
+    const data = await $.ajax({ url: `${API}/api/system/restart`, method: 'POST' });
+    if (!data.success) {
+      throw new Error(data.error || 'Falha ao reiniciar');
     }
+
+    btn.html('<i class="fas fa-check mr-2"></i>Reiniciando para iniciar OpenClaw...')
+      .removeClass('bg-tomate-500 hover:bg-tomate-600')
+      .addClass('bg-green-500');
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   } catch (error) {
     alert(`Erro: ${error.message}`);
     btn.prop('disabled', false).html('<i class="fas fa-play mr-2"></i>Iniciar Gateway');
